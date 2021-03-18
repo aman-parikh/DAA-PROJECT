@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+from maze import make_grid, draw_grid
 
 pygame.init()
 
@@ -53,10 +54,86 @@ def welcome():
 
     pygame.display.update()
 
+def gen():
+    image = pygame.transform.scale(pygame.image.load(r'C:\Users\Isha Pranav\Desktop\miniProj\pathFinding\images\maze.jfif'), (width, height))
+    win.blit(image, (0,0))
+
+    #texts
+    text = font1.render('How do you want to generate', 1, black, white)
+    text_1 = font1.render('the maze ?', 1, black , white)
+    text1 = font1.render('1. Manual', 1, black, white)
+    text2 = font1.render('2. Automatic', 1, black, white)
+
+    midx = 25
+    midy = height/2 - 50
+
+    win.blit(text, (midx, midy - 200))
+    win.blit(text_1, (midx, midy-110))
+    win.blit(text1, (midx, midy))
+    win.blit(text2, (midx, midy+100))
+
+    pygame.display.update()
+
+def algorithms():
+    image = pygame.transform.scale(pygame.image.load(r'C:\Users\Isha Pranav\Desktop\miniProj\pathFinding\images\maze.jfif'), (width, height))
+    win.blit(image, (0,0))
+
+    #texts
+    text = font1.render('Algorithm ? ', 1, black, white)
+    text1 = font1.render('1. Breadth First Search (BFS)', 1, black, white)
+    text2 = font1.render('2. Depth First Search (DFS)', 1, black, white)
+    text3 = font1.render('3. Dijkstra Algorithm', 1, black, white)
+    text4 = font1.render('4. A* Algorithm', 1, black, white)
+
+    midx = 25
+    midy = height/2 - 50
+
+    win.blit(text, (midx, midy - 200))
+    win.blit(text1, (midx, midy))
+    win.blit(text2, (midx, midy+100))
+    win.blit(text3, (midx, midy + 200))
+    win.blit(text4, (midx, midy + 300))
+
+    pygame.display.update()
+
+def speed():
+    image = pygame.transform.scale(pygame.image.load(r'C:\Users\Isha Pranav\Desktop\miniProj\pathFinding\images\maze.jfif'), (width, height))
+    win.blit(image, (0,0))
+
+    #texts
+    text = font1.render('Visualization Speed ? ', 1, black, white)
+    text1 = font1.render('1. Slow', 1, black, white)
+    text2 = font1.render('2. Medium', 1, black, white)
+    text3 = font1.render('3. Fast', 1, black, white)
+
+    midx = 25
+    midy = height/2 - 50
+
+    win.blit(text, (midx, midy - 200))
+    win.blit(text1, (midx, midy))
+    win.blit(text2, (midx, midy+100))
+    win.blit(text3, (midx, midy + 200))
+
+    pygame.display.update()
+
+def maze_generation(preferece, win):
+
+    if preferece['Generation'] == 1:
+        win.fill(white)
+
+        rows = 25
+        columns = 25
+        grid = make_grid(rows, width, columns, height)
+        draw_grid(win, grid, width, height, rows, columns)
+
 def main():
     run = True
 
     welcome()
+
+    preference = {}
+
+    flag1 = flag2 = flag3 = flag4 = 1
 
     while run:
         clock.tick(60)
@@ -68,8 +145,60 @@ def main():
                 pygame.quit()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_x:
                     run = False
                     pygame.quit()
+
+                #user choice for generation of maze
+                if event.key == pygame.K_RETURN and flag1:
+                    gen()
+
+                if flag1:
+                    if event.key == pygame.K_1:
+                        preference['Generation'] = 1
+                        flag1 = 0
+                    elif event.key == pygame.K_2:
+                        preference['Generation'] = 2
+                        flag1 = 0
+                    continue
+
+                #algortihm choice
+                if event.key == pygame.K_RETURN and flag2:
+                    algorithms()
+
+                if flag2:
+                    if event.key == pygame.K_1:
+                        preference['Algo'] = 1
+                        flag2 = 0
+                    elif event.key == pygame.K_2:
+                        preference['Algo'] = 2
+                        flag2 = 0
+                    elif event.key == pygame.K_3:
+                        preference['Algo'] = 3
+                        flag2 = 0
+                    elif event.key == pygame.K_4:
+                        preference['Algo'] = 4
+                        flag2 = 0
+                    continue
+
+                #Speed
+                if event.key == pygame.K_RETURN and flag3:
+                    speed()
+
+                if flag3:
+                    if event.key == pygame.K_1:
+                        preference['Speed'] = 1
+                        flag3 = 0
+                    elif event.key == pygame.K_2:
+                        preference['Speed'] = 2
+                        flag3 = 0
+                    elif event.key == pygame.K_3:
+                        preference['Speed'] = 3
+                        flag3 = 0
+
+                if event.key == pygame.K_m:
+                   maze_generation(preference, win)
+
+
 
 main()
