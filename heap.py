@@ -1,3 +1,4 @@
+#methods to select optimal path
 def swap(spot_list,x,y):
     t=spot_list[x]
     spot_list[x]=spot_list[y]
