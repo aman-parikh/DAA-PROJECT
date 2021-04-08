@@ -27,7 +27,7 @@ class BACKTRACK:
 
     @staticmethod
     def backtracking(draw_bin, draw_fin_path, grid, start, end, row, col, Cellgrid):
-        if grid[row][col] == 2:
+        if grid[row][col] == 2:#return condition
             return True
 
         elif grid[row][col] == 0:
