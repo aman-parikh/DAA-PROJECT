@@ -50,7 +50,7 @@ class DIJKSTRA:
                 return
 
             nodes.pop(0)
-
+            #scanning all neighbours (paths) to add to a group of paths
             for neighbor in current_node.neighbors:
 
                 if neighbor not in visited:
