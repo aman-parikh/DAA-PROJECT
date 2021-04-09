@@ -75,6 +75,6 @@ class ASTAR:
 
             if current != start:
                 current.make_closed()
-                draw()
-
+                draw()#closing
+            
         return
